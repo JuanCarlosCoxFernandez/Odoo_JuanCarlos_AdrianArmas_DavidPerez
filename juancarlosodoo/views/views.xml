@@ -1,0 +1,125 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <!-- Empresas_contratadoras -->
+
+    <record model="ir.ui.view" id="juancarlosodoo.empresas_contratadoras_tree">
+      <field name="name">juancarlosodoo.empresas_contratadoras.tree</field>
+      <field name="model">juancarlosodoo.empresas_contratadoras</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name" />
+          <field name="email" />
+          <field name="phone" />
+          <field name="numero_empleados" />
+          <field name="tam_empresa"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="juancarlosodoo.empresas_contratadoras_form">
+      <field name="name">juancarlosodoo.empresas_contratadoras.form</field>
+      <field name="model">juancarlosodoo.empresas_contratadoras</field>
+      <field name="arch" type="xml">
+        <form>
+          <group colspan="2" col="2">
+            <field name="name" />
+            <field name="email" />
+            <field name="show_task" invisible="0"/>
+            <field name="dropdown_field" invisible="0"/>
+            <field name="phone" attrs="{'invisible': [('show_task', '=', False)]}"/>
+            <field name="phone" />
+            <field name="numero_empleados" />
+            <field name="tam_empresa" groups="juancarlosodoo.administrador"/>
+            <field name="project" />
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="project_project_extend" model="ir.ui.view">
+      <field name="name">project.project.extended</field>
+      <field name="model">project.project</field>
+      <field name="inherit_id" ref="project.edit_project" />
+      <field name="arch" type="xml">
+        <field name="user_id" position="after">
+          <field name="empresas" />
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="juancarlosodoo.empresas_contratadoras_action_window">
+      <field name="name">empresas_contratadoras</field>
+      <field name="res_model">juancarlosodoo.empresas_contratadoras</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_menu_proyectos" model="ir.actions.act_window">
+      <field name="name">Proyectos</field>
+      <field name="res_model">project.project</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_menu_tareas" model="ir.actions.act_window">
+      <field name="name">Tareas</field>
+      <field name="res_model">project.task</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.ui.view" id="vista_registro_creacion_empresa_tree">
+      <field name="name">vista.registro.creacion.empresa.tree</field>
+      <field name="model">juancarlosodoo.registro_creacion_empresa</field>
+      <field name="arch" type="xml">
+          <tree string="Registros de Creación de Empresas">
+              <field name="user"/>
+              <field name="empresaName"/>
+              <field name="fecha"/>
+              <field name="tipo_accion"/>
+          </tree>
+      </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="accion_vista_registro_creacion_empresa">
+    <field name="name">Registros de Creación de Empresas</field>
+    <field name="res_model">juancarlosodoo.registro_creacion_empresa</field>
+    <field name="view_mode">tree</field>
+</record>
+
+<record id="res_config_settings_action"
+      model="ir.actions.act_window">
+      <field name="name">Configuracion</field>
+      <field name="res_model">res.config.settings</field>
+      <field name="view_mode">form</field>
+      <field name="context">{'module' : 'juancarlosodoo.empresas_contratadoras'}</field>
+    </record>
+
+    <!-- Menú principal aplicacion juancarlosodoo -->
+    <menuitem name="juancarlosodoo" id="juancarlosodoo.menu_root" />
+
+    <!-- Submenu juancarlosodoo -->
+    <menuitem name="empresas_contratadoras" id="juancarlosodoo.empresas_contratadoras_menu"
+      parent="juancarlosodoo.menu_root" 
+      action="juancarlosodoo.empresas_contratadoras_action_window" />
+
+    <menuitem name="Proyectos" id="juancarlosodoo.proyecto_menu"
+      parent="juancarlosodoo.menu_root" 
+      action="juancarlosodoo.action_menu_proyectos" />
+
+      <menuitem name="Tareas" id="juancarlosodoo.tareas_menu"
+      parent="juancarlosodoo.menu_root" 
+      action="juancarlosodoo.action_menu_tareas" />
+
+      <menuitem id="menu_registro_creacion_empresa" name="Registros de Creacion de Empresas" parent="juancarlosodoo.menu_root"/>
+      <menuitem id="menu_registro_creacion_empresa_list" name="Lista de Registros" parent="juancarlosodoo.menu_root" action="accion_vista_registro_creacion_empresa"/>
+
+      <menuitem name="Opciones" id="juancarlosodoo.config_settigns"
+      parent="juancarlosodoo.menu_root"
+      action="res_config_settings_action" />
+
+    <!-- opciones del menu juancarlosodoo -->
+
+
+
+  </data>
+</odoo>
